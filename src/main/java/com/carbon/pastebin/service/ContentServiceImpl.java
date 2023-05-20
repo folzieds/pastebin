@@ -5,6 +5,7 @@ import com.carbon.pastebin.exception.ContentNotFoundException;
 import com.carbon.pastebin.model.Content;
 import com.carbon.pastebin.repository.ContentRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ import java.util.Optional;
 public class ContentServiceImpl implements ContentService{
 
     private ContentRepository contentRepository;
+
+    @Value("${content.domain.name}")
+    private String DOMAIN_NAME;
 
     public ContentServiceImpl(ContentRepository contentRepository) {
         this.contentRepository = contentRepository;
@@ -33,16 +37,14 @@ public class ContentServiceImpl implements ContentService{
             content.setExpiryDate(expiryDate);
         }
 
+        String url = getRandomString(15);
+        content.setUrl(url);
+
         contentRepository.save(content);
 
-        return generateShortURL(content.getId());
+        return DOMAIN_NAME + url;
     }
 
-    private String generateShortURL(Long contentId) {
-        // Implement your short URL generation logic here
-        // This could involve encoding the ID or using an algorithm to create a unique short URL
-        return "https://yourdomain.com/" + contentId;
-    }
 
     private String getRandomString(int stringLength) {
         return RandomStringUtils.random(stringLength, true, true);
