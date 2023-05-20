@@ -23,4 +23,6 @@ public class Content {
     private String text;
 
     private LocalDate expiryDate;
+
+    private String url;
 }
