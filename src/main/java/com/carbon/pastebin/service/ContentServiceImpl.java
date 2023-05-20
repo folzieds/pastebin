@@ -1,5 +1,7 @@
 package com.carbon.pastebin.service;
 
+import com.carbon.pastebin.exception.ContentExpiredException;
+import com.carbon.pastebin.exception.ContentNotFoundException;
 import com.carbon.pastebin.model.Content;
 import com.carbon.pastebin.repository.ContentRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +49,7 @@ public class ContentServiceImpl implements ContentService{
     }
 
     @Override
-    public ResponseEntity<String> getSharedContent(String url) {
+    public ResponseEntity getSharedContent(String url) {
 
         Optional<Content> optionalContent = contentRepository.findByUrl(url);
 
@@ -56,13 +58,13 @@ public class ContentServiceImpl implements ContentService{
 
             if (content.getExpiryDate() != null && content.getExpiryDate().isBefore(LocalDate.now())) {
                 log.info("Content has expired...");
-                return ResponseEntity.status(HttpStatus.GONE).body("Content has expired.");
+                throw new ContentExpiredException("Content has expired.");
             }
 
             return ResponseEntity.ok(content.getText());
         } else {
             log.info("Content was not found...");
-            return ResponseEntity.notFound().build();
+            throw new ContentNotFoundException("Content was not found.");
         }
     }
 }
