@@ -36,8 +36,8 @@ public class ContentServiceImpl implements ContentService{
             LocalDate expiryDate = LocalDate.parse(expiryDateStr);
             content.setExpiryDate(expiryDate);
         }
-
-        String url = getRandomString(15);
+        int urlLength = Math.max(text.length() % 20, 15);
+        String url = getRandomString(urlLength);
         content.setUrl(url);
 
         contentRepository.save(content);
