@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class ContentController {
 
-    private ContentService contentService;
+    private final ContentService contentService;
 
     public ContentController(ContentService contentService) {
         this.contentService = contentService;
@@ -23,7 +23,7 @@ public class ContentController {
     }
 
     @GetMapping("/{url}")
-    public ResponseEntity<String> getSharedContent(@PathVariable String url) {
+    public ResponseEntity<String> retrieveSharedContent(@PathVariable String url) {
         return contentService.getSharedContent(url);
     }
 

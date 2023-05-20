@@ -2,23 +2,23 @@ package com.carbon.pastebin.service;
 
 import com.carbon.pastebin.exception.ContentExpiredException;
 import com.carbon.pastebin.exception.ContentNotFoundException;
+import com.carbon.pastebin.exception.InvalidContentException;
 import com.carbon.pastebin.model.Content;
 import com.carbon.pastebin.repository.ContentRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.RandomStringUtils;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
 @Slf4j
 public class ContentServiceImpl implements ContentService{
 
-    private ContentRepository contentRepository;
+    private final ContentRepository contentRepository;
 
     @Value("${content.domain.name}")
     private String DOMAIN_NAME;
@@ -29,12 +29,15 @@ public class ContentServiceImpl implements ContentService{
 
     @Override
     public String createContent(String text, String expiryDateStr) {
+        validateForCreate(text);
         Content content = new Content();
         content.setText(text);
 
         if (expiryDateStr != null) {
-            LocalDate expiryDate = LocalDate.parse(expiryDateStr);
+            LocalDateTime expiryDate = LocalDateTime.parse(expiryDateStr);
             content.setExpiryDate(expiryDate);
+        }else{
+            content.setExpiryDate(LocalDateTime.now().plusHours(1L));
         }
         int urlLength = Math.max(text.length() % 20, 15);
         String url = getRandomString(urlLength);
@@ -43,6 +46,12 @@ public class ContentServiceImpl implements ContentService{
         contentRepository.save(content);
 
         return DOMAIN_NAME + url;
+    }
+
+    private void validateForCreate(String text) {
+        if(text == null || text.isEmpty()){
+            throw new InvalidContentException("text cannot be empty...");
+        }
     }
 
 
@@ -58,7 +67,7 @@ public class ContentServiceImpl implements ContentService{
         if (optionalContent.isPresent()) {
             Content content = optionalContent.get();
 
-            if (content.getExpiryDate() != null && content.getExpiryDate().isBefore(LocalDate.now())) {
+            if (content.getExpiryDate() != null && content.getExpiryDate().isBefore(LocalDateTime.now())) {
                 log.info("Content has expired...");
                 throw new ContentExpiredException("Content has expired.");
             }

@@ -20,7 +20,14 @@ public class ContentExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(ContentExpiredException.class)
-    public final ResponseEntity<ContentExceptionResponse> handleExpiredException(ContentExpiredException ex){
+    public final ResponseEntity<ContentExceptionResponse> handleExpiredContentException(ContentExpiredException ex){
+
+        ContentExceptionResponse exceptionResponse = new ContentExceptionResponse(HttpStatus.BAD_REQUEST.getReasonPhrase(),ex.getLocalizedMessage(),ex.getMessage());
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidContentException.class)
+    public final ResponseEntity<ContentExceptionResponse> handleInvalidContentException(InvalidContentException ex){
 
         ContentExceptionResponse exceptionResponse = new ContentExceptionResponse(HttpStatus.BAD_REQUEST.getReasonPhrase(),ex.getLocalizedMessage(),ex.getMessage());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);

@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -22,7 +23,7 @@ public class Content {
     @Column(nullable = false, length = 10000)
     private String text;
 
-    private LocalDate expiryDate;
+    private LocalDateTime expiryDate;
 
     private String url;
 }
