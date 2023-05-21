@@ -19,11 +19,13 @@ An app that allows users to share content and provide a link to be able to acces
    1. ``content_datasource_url``
    2. ``content_datasource_username``
    3. ``content_datasource_password``
-6. run the project using the following command <br>
+   4.  ``content.domain.url``
+6. The default for the ``content.domain.url`` is ``http://localhost:8090/api/``
+7. run the project using the following command <br>
    ``gradle springboot:run``
 
 ### API DOCUMENTATION
-Endpoint: **/create** <br>
+Endpoint: **api/create** <br>
 Method: **POST**
 
 **Request Parameters:**
@@ -35,7 +37,7 @@ Method: **POST**
 
 The API will respond with a short URL that can be used to access the shared content.
 
-Endpoint: **/{url}** <br>
+Endpoint: **api/{url}** <br>
 Method: **GET**
 
 **Path Variable:**
