@@ -1,10 +1,10 @@
-package com.carbon.pastebin.service;
+package com.carbon.pastebin.services;
 
-import com.carbon.pastebin.exception.ContentExpiredException;
-import com.carbon.pastebin.exception.ContentNotFoundException;
-import com.carbon.pastebin.exception.InvalidContentException;
-import com.carbon.pastebin.model.Content;
-import com.carbon.pastebin.repository.ContentRepository;
+import com.carbon.pastebin.exceptions.ContentExpiredException;
+import com.carbon.pastebin.exceptions.ContentNotFoundException;
+import com.carbon.pastebin.exceptions.InvalidContentException;
+import com.carbon.pastebin.models.Content;
+import com.carbon.pastebin.repositories.ContentRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;

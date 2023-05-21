@@ -1,7 +1,6 @@
-package com.carbon.pastebin.service;
+package com.carbon.pastebin.services;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 
 public interface ContentService {
 

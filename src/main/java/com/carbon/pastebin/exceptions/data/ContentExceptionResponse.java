@@ -1,4 +1,4 @@
-package com.carbon.pastebin.exception.data;
+package com.carbon.pastebin.exceptions.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

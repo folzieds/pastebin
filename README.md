@@ -14,7 +14,13 @@ An app that allows users to share content and provide a link to be able to acces
 1. Download Java 11 and install 
 2. Download Mysql 8.0.25 and install 
 3. Create DataBase pasteBin
-4. 
+4. Open a cmd or terminal and go to the root directory of the project
+5. Create the environmental variables for the db connections, the required ones are as follows 
+   1. ``content_datasource_url``
+   2. ``content_datasource_username``
+   3. ``content_datasource_password``
+6. run the project using the following command <br>
+   ``gradle springboot:run``
 
 ### API DOCUMENTATION
 Endpoint: **/create** <br>
@@ -23,7 +29,7 @@ Method: **POST**
 **Request Parameters:**
 
 **text** (required): The text content to be shared. <br>
-**expiry** (optional): The expiry date for the content in a format like YYYY-MM-DD. If not provided, the content expire in 1 hour. <br>
+**expiry** (optional): The expiry date and time for the content in a format like yyyy-MM-dd-HH-mm-ss. If not provided, the content expire in 1 hour. <br>
 
 **Response:**
 

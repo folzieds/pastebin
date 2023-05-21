@@ -1,4 +1,4 @@
-package com.carbon.pastebin.exception;
+package com.carbon.pastebin.exceptions;
 
 public class ContentNotFoundException extends RuntimeException{
 

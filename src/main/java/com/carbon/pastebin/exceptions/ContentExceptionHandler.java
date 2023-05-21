@@ -1,6 +1,6 @@
-package com.carbon.pastebin.exception;
+package com.carbon.pastebin.exceptions;
 
-import com.carbon.pastebin.exception.data.ContentExceptionResponse;
+import com.carbon.pastebin.exceptions.data.ContentExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

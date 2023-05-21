@@ -1,6 +1,6 @@
-package com.carbon.pastebin.controller;
+package com.carbon.pastebin.controllers;
 
-import com.carbon.pastebin.service.ContentService;
+import com.carbon.pastebin.services.ContentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
