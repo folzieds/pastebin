@@ -43,9 +43,9 @@ public class ContentServiceImpl implements ContentService{
         String url = getRandomString(urlLength);
         content.setUrl(url);
 
-        contentRepository.save(content);
+        Content response = contentRepository.save(content);
 
-        return DOMAIN_NAME + url;
+        return DOMAIN_NAME + response.getUrl();
     }
 
     private void validateForCreate(String text) {
